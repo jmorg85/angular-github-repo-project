@@ -1,9 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { Response } from '../Models/Response';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CallGithubAPI } from '../services/CallGithub';
 
 @Component({
   imports: [RouterOutlet, AsyncPipe],
@@ -12,8 +12,10 @@ import { Observable } from 'rxjs';
   templateUrl: './app.html',
 })
 export class App {
-  private http = inject(HttpClient);
+  results$: Observable<Response[]>;
 
-  results$: Observable<Response[]> = this.http.get<Response[]>('https://api.github.com/users/jmorg85/repos');
+  constructor(private apiService:  CallGithubAPI) {
+    this.results$ = this.apiService.GetAll();
+  }
 
 }

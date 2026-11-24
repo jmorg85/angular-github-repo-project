@@ -1,11 +1,16 @@
 @if(results$ | async; as results)
 {
-  <ul>
-    @for(result of results; track result.id)
+  @for(result of results; track result.id)
     {
-      <li>{{result.name}}</li>
+      <div>
+        <ul>
+          <li>Here is the id: {{result.id}}</li>
+          <li><a [href]="result.html_url" target="_blank" rel="noopener noreferrer">{{ result.name }}</a></li>
+          <li>{{result.description}}</li>
+        </ul>
+      </div>
+      
     }
-  </ul>
 }
 
 @else() {
